@@ -4,7 +4,7 @@ export const site = {
   tagline: ['AI and cybersecurity', 'QUT'],
   location: ['Brisbane', 'AU'],
   /** Bottom-left of the homepage. */
-  quote: '“Growth mindset”',
+  quote: 'Growth mindset',
   description:
     'Brendon Babicean is an IT student at QUT, double-majoring in Cybersecurity and AI. Projects, GitHub and contact.',
 

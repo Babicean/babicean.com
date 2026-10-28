@@ -35,6 +35,17 @@
   --s-8: 64px;
   --s-9: 96px;
 
+  /* Type scale (after Apple's: body 17, subheadline 15). Every reading text
+     on a card is --t-body; supporting lines are --t-sub. */
+  --t-large: 44px;
+  --t-title: 28px;
+  --t-heading: 22px;
+  --t-lead: 18px;
+  --t-body: 17px;
+  --t-sub: 15px;
+  --t-meta: 13px;
+  --t-label: 12px;
+
   /* Layout, built from the scale */
   --gutter: var(--s-6);
   --page-top: var(--s-9);
@@ -49,6 +60,8 @@
     --page-top: var(--s-8);
     --page-bottom: var(--s-7);
     --row-pad: var(--s-5);
+    --t-large: 36px;
+    --t-title: 22px;
   }
 }
 
@@ -67,7 +80,7 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--sans);
-  font-size: 17px;
+  font-size: var(--t-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -158,7 +171,7 @@ a:focus-visible {
 .masthead h1 {
   grid-area: name;
   margin: 0;
-  font-size: 44px;
+  font-size: var(--t-large);
   font-weight: 500;
   letter-spacing: -0.02em;
   line-height: 1.1;
@@ -170,7 +183,7 @@ a:focus-visible {
 .masthead .tagline {
   grid-area: tagline;
   margin: var(--s-1) 0 0;
-  font-size: 18px;
+  font-size: var(--t-lead);
   line-height: 1.4;
 }
 
@@ -178,7 +191,7 @@ a:focus-visible {
   grid-area: location;
   justify-self: end;
   margin: 0;
-  font-size: 13px;
+  font-size: var(--t-meta);
   line-height: 1.4;
 }
 
@@ -190,10 +203,6 @@ a:focus-visible {
       'tagline'
       'location';
     padding-bottom: var(--s-6);
-  }
-
-  .masthead h1 {
-    font-size: 36px;
   }
 
   /* Measured so the gap from tagline to location matches name to tagline. */
@@ -223,7 +232,7 @@ a:focus-visible {
 .row > h2 {
   flex: 0 0 var(--label-w);
   margin: 0;
-  font: 500 12px/1.6 var(--mono);
+  font: 500 var(--t-label)/1.6 var(--mono);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink-2);
@@ -237,7 +246,7 @@ a:focus-visible {
 .row-body > p {
   margin: 0;
   max-width: 640px;
-  font-size: 19px;
+  font-size: var(--t-body);
   line-height: 1.6;
 }
 
@@ -251,7 +260,7 @@ a:focus-visible {
   max-width: 640px;
   margin-bottom: 0;
   padding-left: 1.2em;
-  font-size: 19px;
+  font-size: var(--t-body);
 }
 
 .row-body code {
@@ -283,7 +292,7 @@ a:focus-visible {
   list-style: none;
   margin-block: calc((44px - 1.6em) / -2);
   padding: 0;
-  font-size: 17px;
+  font-size: var(--t-body);
 }
 
 .link-list a {
@@ -296,11 +305,23 @@ a:focus-visible {
 }
 
 .link-list .meta {
-  font: 400 13px/1.4 var(--mono);
+  font: 400 var(--t-meta)/1.4 var(--mono);
   color: var(--ink-2);
   text-align: right;
 }
 
 .link-list a:focus .meta {
   color: inherit;
+}
+
+/* A paragraph that is only a link reads as a quiet footer link for the card. */
+.row-body > p:has(> a:only-child) {
+  font: 400 var(--t-meta)/1.4 var(--mono);
+}
+
+.row-body > p > a:only-child {
+  display: inline-block;
+  padding-block: var(--s-3);
+  margin-block: calc(var(--s-3) * -1);
+  text-decoration: none;
 }

@@ -30,14 +30,13 @@ const facts = [
 ---
 
 <Base title={data.title} description={data.summary}>
-  <nav class="crumbs mono" aria-label="Breadcrumb">
-    <a href="/">← {site.name}</a>
-    <span class="muted">Projects / {data.title}</span>
-  </nav>
-
   <header class="project-head">
+    <nav class="crumbs mono" aria-label="Breadcrumb">
+      <a class="back" href="/"><span class="back-arrow" aria-hidden="true">←</span> {site.name}</a>
+      <span class="muted">Projects / {data.title}</span>
+    </nav>
     <h1>{data.title}</h1>
-    <p class="muted">{data.tagline}</p>
+    <p class="tagline muted">{data.tagline}</p>
   </header>
 
   <dl class="facts">
@@ -91,16 +90,22 @@ const facts = [
 </Base>
 
 <style>
-  /* Breadcrumbs sit in the top margin, so the title lines up with the
-     homepage name. */
+  /* Header rhythm, measured from rendered text: breadcrumb to title is twice
+     title to tagline, so the title and tagline read as one group. */
+  .project-head {
+    padding-bottom: var(--s-7);
+    border-bottom: 1px solid var(--ink);
+  }
+
   .crumbs {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: baseline;
     gap: 0 var(--s-4);
-    margin: calc(var(--s-7) * -1) 0 var(--s-6);
-    font-size: 13px;
+    margin-bottom: var(--crumb-gap);
+    font-size: var(--t-meta);
+    line-height: 1.4;
   }
 
   .crumbs a {
@@ -109,24 +114,30 @@ const facts = [
     text-decoration: none;
   }
 
-  .project-head {
-    padding-bottom: var(--s-7);
-    border-bottom: 1px solid var(--ink);
+  /* The mono arrow sits centred in a wide cell; pull it back to the left edge. */
+  .back-arrow {
+    margin-left: var(--arrow-pull);
   }
 
   .project-head h1 {
-    margin: 0;
-    font-size: 44px;
+    margin: 0 0 0 var(--title-pull);
+    font-size: var(--t-large);
     font-weight: 500;
     letter-spacing: -0.02em;
     line-height: 1.1;
   }
 
-  .project-head p {
-    margin: var(--s-2) 0 0;
+  .project-head .tagline {
+    margin: var(--s-1) 0 0;
     max-width: 640px;
-    font-size: 18px;
+    font-size: var(--t-lead);
     line-height: 1.4;
+  }
+
+  .project-head {
+    --crumb-gap: var(--s-5);
+    --arrow-pull: 0px;
+    --title-pull: 0px;
   }
 
   .facts {
@@ -145,7 +156,7 @@ const facts = [
 
   .facts dt {
     margin-bottom: var(--s-1);
-    font: 500 12px/1.6 var(--mono);
+    font: 500 var(--t-label)/1.6 var(--mono);
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--ink-2);
@@ -153,7 +164,7 @@ const facts = [
 
   .facts dd {
     margin: 0;
-    font-size: 17px;
+    font-size: var(--t-body);
     white-space: nowrap;
   }
 
@@ -169,20 +180,12 @@ const facts = [
   }
 
   .stage figcaption {
-    font-size: 12px;
+    font-size: var(--t-label);
   }
 
   @media (max-width: 640px) {
-    .crumbs {
-      margin-top: calc(var(--s-5) * -1);
-    }
-
     .project-head {
       padding-bottom: var(--s-6);
-    }
-
-    .project-head h1 {
-      font-size: 36px;
     }
 
     .stage {

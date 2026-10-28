@@ -77,7 +77,7 @@
     align-items: baseline;
     gap: var(--s-2) var(--s-5);
     padding-top: var(--row-pad);
-    font: 400 12px/1.6 var(--mono);
+    font: 400 var(--t-label)/1.6 var(--mono);
     color: var(--ink-2);
   }
 
@@ -93,12 +93,12 @@
     text-decoration: none;
   }
 
+  /* Plain inline text, so its baseline lines up with the left side. The face
+     sits on the text's x-height centre. */
   .clock {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--s-2);
     margin: 0;
     font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
 
   .clock[hidden] {
@@ -106,7 +106,8 @@
   }
 
   .clock-face {
-    flex: none;
+    margin-right: var(--s-2);
+    vertical-align: -0.2em;
     overflow: visible;
     stroke-linecap: round;
   }

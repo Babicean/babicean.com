@@ -9,20 +9,20 @@ stack: [React, TypeScript, Capacitor]
 status: TestFlight and Google Play beta
 order: 1
 media: tally-screen
-# Add the repo link back once the signing key is out of it (README → Later):
-# links:
-#   - label: Source on GitHub
-#     href: https://github.com/Babicean/Tally
 ---
 
 ## Why
 
-It started as a personal problem: I wanted a simple calorie tracker that was fast and well designed, so I built my own. I use it every day on my Galaxy S26 Ultra.
+For fun, and to solve a personal gripe I had with many of the calorie tracking apps I'd tried. Tally was built to be simple and fun to use.
 
 ## How it works
 
-Log a meal in two taps and the day's total ticks up inside a progress ring that turns a calm amber, never red, once you pass your goal. Everyday staples live in a Menu and log in one tap, quick-add chips learn your habits, and protein tracking is optional. It's one React and TypeScript codebase wrapped for mobile with Capacitor. Data stays on the device, mirrored to Android's backed-up storage, with a JSON export for full backups.
+Type in the calories of a meal or food you've eaten. Optionally, add the food's name and a macro breakdown for more granular logging. Your total calories for the day sit front and centre, with a setting to show your macros underneath.
 
-## What I learned
+It's designed to be simple for anyone to understand, with more advanced calorie goals and features in the settings menu for those who want them.
 
-Defining a "day" was harder than it looked. Nobody thinks of a 1 AM snack as tomorrow's food, so Tally's day starts at 2 AM. That rule lives in one function with unit tests covering month, year and leap-day rollovers, because history, streaks and weekly recaps all depend on it being right.
+[Source and technical details on GitHub ↗](https://github.com/Babicean/Tally)
+
+## What it taught me
+
+User feedback, continuous design iteration and rapid prototyping are crucial. Tally has been through around 50 builds, each with its own tweaks and improvements, and it's come a long way. Having a long-term vision for the project and breaking it into small, manageable steps really helped.
