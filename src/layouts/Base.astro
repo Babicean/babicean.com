@@ -36,5 +36,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <div class="page">
       <slot />
     </div>
+    <script>
+      // Focus links on click so the last one clicked keeps the accent colour
+      // (Chrome does this natively; Safari and Firefox on macOS don't).
+      document.addEventListener('click', (event) => {
+        const link = (event.target as Element | null)?.closest('a');
+        link?.focus({ preventScroll: true });
+      });
+    </script>
   </body>
 </html>

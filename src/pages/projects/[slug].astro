@@ -2,6 +2,7 @@
 import type { GetStaticPaths } from 'astro';
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import Footer from '../../components/Footer.astro';
 import TallyScreen from '../../components/TallyScreen.astro';
 import { site } from '../../site';
 import { meta } from '../../lib/meta';
@@ -52,7 +53,7 @@ const facts = [
 
   {
     Media && (
-      <section class="row" aria-labelledby="screens">
+      <section class="row row--media" aria-labelledby="screens">
         <h2 id="screens">Screens</h2>
         <div class="row-body">
           <figure class="stage">
@@ -68,7 +69,7 @@ const facts = [
 
   {
     data.links.length > 0 && (
-      <section class="row row--links" aria-labelledby="links">
+      <section class="row" aria-labelledby="links">
         <h2 id="links">Links</h2>
         <ul class="row-body link-list">
           {data.links.map((link) => (
@@ -84,30 +85,32 @@ const facts = [
     )
   }
 
-  <footer class="site-footer">
+  <Footer>
     <a href="/">← Back to index</a>
-    <span>© {new Date().getFullYear()} {site.name}</span>
-  </footer>
+  </Footer>
 </Base>
 
 <style>
+  /* Breadcrumbs sit in the top margin, so the title lines up with the
+     homepage name. */
   .crumbs {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
-    gap: 0 16px;
-    margin: -48px 0 40px;
+    align-items: baseline;
+    gap: 0 var(--s-4);
+    margin: calc(var(--s-7) * -1) 0 var(--s-6);
     font-size: 13px;
   }
 
   .crumbs a {
-    padding: 12px 0;
+    padding-block: var(--s-3);
+    margin-block: calc(var(--s-3) * -1);
     text-decoration: none;
   }
 
   .project-head {
-    padding-bottom: 48px;
+    padding-bottom: var(--s-7);
     border-bottom: 1px solid var(--ink);
   }
 
@@ -116,22 +119,22 @@ const facts = [
     font-size: 44px;
     font-weight: 500;
     letter-spacing: -0.02em;
-    line-height: 1.05;
+    line-height: 1.1;
   }
 
   .project-head p {
-    margin: 10px 0 0;
+    margin: var(--s-2) 0 0;
     max-width: 640px;
-    font-size: 19px;
-    line-height: 1.5;
+    font-size: 18px;
+    line-height: 1.4;
   }
 
   .facts {
     display: flex;
     flex-wrap: wrap;
-    gap: 24px 32px;
+    gap: var(--s-5) var(--s-6);
     margin: 0;
-    padding: 28px 0;
+    padding-block: var(--row-pad);
     border-bottom: 1px solid var(--rule);
   }
 
@@ -140,18 +143,8 @@ const facts = [
     flex: 1 1 auto;
   }
 
-  .facts dd {
-    white-space: nowrap;
-  }
-
-  @media (max-width: 400px) {
-    .facts dd {
-      white-space: normal;
-    }
-  }
-
   .facts dt {
-    margin-bottom: 6px;
+    margin-bottom: var(--s-1);
     font: 500 12px/1.6 var(--mono);
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -161,6 +154,7 @@ const facts = [
   .facts dd {
     margin: 0;
     font-size: 17px;
+    white-space: nowrap;
   }
 
   .stage {
@@ -168,8 +162,8 @@ const facts = [
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
-    padding: 56px 16px;
+    gap: var(--s-3);
+    padding: var(--s-7) var(--s-4);
     border-radius: 6px;
     background: var(--stage);
   }
@@ -180,7 +174,11 @@ const facts = [
 
   @media (max-width: 640px) {
     .crumbs {
-      margin-top: -24px;
+      margin-top: calc(var(--s-5) * -1);
+    }
+
+    .project-head {
+      padding-bottom: var(--s-6);
     }
 
     .project-head h1 {
@@ -188,7 +186,13 @@ const facts = [
     }
 
     .stage {
-      padding: 32px 8px;
+      padding: var(--s-6) var(--s-2);
+    }
+  }
+
+  @media (max-width: 400px) {
+    .facts dd {
+      white-space: normal;
     }
   }
 </style>

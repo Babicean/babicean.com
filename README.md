@@ -1,6 +1,6 @@
 # babicean.com
 
-Brendon Babicean's portfolio. A static [Astro](https://astro.build) site deployed to Cloudflare (Workers static assets). No JavaScript ships to the browser.
+Brendon Babicean's portfolio. A static [Astro](https://astro.build) site deployed to Cloudflare (Workers static assets). The only JavaScript in the browser is under 1 KB: the footer clock and link focus.
 
 ## Run it
 
@@ -48,6 +48,10 @@ Routine calls made while building v1. Change any of them.
 - **No "Source on GitHub" link on Tally yet.** Waiting on the keystore fix.
 - **Fonts are self-hosted** (Fontsource), not loaded from Google Fonts: no third-party requests, and the CSP stays `'self'`-only.
 - **Light theme only.** The paper look is the design; dark mode can come later.
-- **"Last updated" is the build date** (Brisbane time), so it updates itself on every deploy.
+- **Accent is Tally's blue at `#2559c9`**, the shade Tally uses for pressed states. Tally's main `#2e6be6` fails WCAG AA for small text on the paper background (4.4:1); this one passes (5.7:1). Change `--accent` in `global.css` to follow the featured project.
+- **Spacing uses one scale** (`--s-1` to `--s-9`: 4, 8, 12, 16, 24, 32, 48, 64, 96). Rows align label and body by first baseline instead of hand-tuned offsets. The only off-scale values are optical fixes in the masthead, measured from rendered pixels.
+- **Footer: quote left, live Brisbane clock right.** Replaced "© Brendon Babicean" and "Last updated". The clock stays hidden if JavaScript is off.
+- **Last-clicked link turns accent.** It's CSS `:focus`, plus a 3-line script so Safari focuses links on click like Chrome does. No tap-highlight boxes.
+- **Scripts and styles never inline** (`inlineStylesheets: 'never'`, `assetsInlineLimit: 0`), so the CSP needs no `'unsafe-inline'`.
 - **The Tally screen is an HTML/CSS recreation** built from Tally's own colour tokens, not a screenshot.
 - **The security pipeline project is a draft file**, so the slot exists in code but nothing shows publicly.

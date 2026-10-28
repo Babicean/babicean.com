@@ -2,6 +2,10 @@
    babicean.com — the "Index" design
    Warm paper, one ink, one accent. IBM Plex Sans for reading, Plex Mono for
    labels and metadata. Every section is a label-column row.
+
+   Spacing rule: every margin, padding and gap uses the --s-* scale below.
+   Rows align label and body on their first text baseline, so there are no
+   hand-tuned nudges to keep in sync.
 --------------------------------------------------------------------------- */
 
 :root {
@@ -11,13 +15,41 @@
   --ink-hover: #3d3b37;
   --rule: #dddad2;
   --stage: #e9e7e1;
-  --accent: #0b6e4f;
+
+  /* Accent follows the featured project. This is Tally's blue at the shade
+     Tally uses for pressed states, so text links pass WCAG AA on paper (5.7:1). */
+  --accent: #2559c9;
+  --accent-tint: #dde6f8;
 
   --sans: 'IBM Plex Sans', system-ui, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
+  /* Spacing scale */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+
+  /* Layout, built from the scale */
+  --gutter: var(--s-6);
+  --page-top: var(--s-9);
+  --page-bottom: var(--s-8);
+  --row-pad: var(--s-6);
   --label-w: 180px;
-  --gap: 32px;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --gutter: var(--s-4);
+    --page-top: var(--s-8);
+    --page-bottom: var(--s-7);
+    --row-pad: var(--s-5);
+  }
 }
 
 *,
@@ -41,14 +73,34 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+::selection {
+  background: var(--accent-tint);
+}
+
+/* --- Links ------------------------------------------------------------------
+   No tap-highlight box. The link you last clicked (or tabbed to) keeps the
+   accent colour until you click something else: that's just :focus, and a
+   tiny script focuses links on click so Safari behaves like everyone else. */
+
 a {
   color: var(--ink);
   text-underline-offset: 4px;
   text-decoration-thickness: 1px;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 120ms ease;
 }
 
 a:hover {
   color: var(--ink-hover);
+}
+
+a:focus {
+  outline: none;
+  color: var(--accent);
+}
+
+a:focus-visible {
+  text-decoration-line: underline;
 }
 
 :focus-visible {
@@ -57,20 +109,22 @@ a:hover {
   border-radius: 2px;
 }
 
-::selection {
-  background: #d9e6df;
+a:focus-visible {
+  outline: none;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  a {
+    transition: none;
+  }
+}
+
+/* --- Page ------------------------------------------------------------------- */
 
 .page {
   max-width: 1040px;
   margin: 0 auto;
-  padding: 96px 32px 64px;
-}
-
-@media (max-width: 640px) {
-  .page {
-    padding: 56px 16px 40px;
-  }
+  padding: var(--page-top) var(--gutter) var(--page-bottom);
 }
 
 .mono {
@@ -85,57 +139,90 @@ a:hover {
   color: var(--accent);
 }
 
-/* --- Masthead -------------------------------------------------------------- */
+/* --- Masthead -----------------------------------------------------------------
+   Name on its own line; tagline and location share a baseline on wide screens
+   and stack under the name on phones, every line on the same left edge. */
 
 .masthead {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 24px;
-  padding-bottom: 48px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'name name'
+    'tagline location';
+  align-items: baseline;
+  column-gap: var(--s-5);
+  padding-bottom: var(--s-7);
   border-bottom: 1px solid var(--ink);
 }
 
 .masthead h1 {
+  grid-area: name;
   margin: 0;
   font-size: 44px;
   font-weight: 500;
   letter-spacing: -0.02em;
-  line-height: 1.05;
+  line-height: 1.1;
+  /* Optical alignment: the capital B carries a side bearing that grows with
+     size, so pull the name back to the same left edge as the lines below. */
+  margin-left: -0.07em;
 }
 
-.masthead p {
-  margin: 10px 0 0;
+.masthead .tagline {
+  grid-area: tagline;
+  margin: var(--s-1) 0 0;
   font-size: 18px;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 .masthead .location {
+  grid-area: location;
+  justify-self: end;
   margin: 0;
   font-size: 13px;
+  line-height: 1.4;
 }
 
 @media (max-width: 640px) {
+  .masthead {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'name'
+      'tagline'
+      'location';
+    padding-bottom: var(--s-6);
+  }
+
   .masthead h1 {
     font-size: 36px;
   }
+
+  /* Measured so the gap from tagline to location matches name to tagline. */
+  .masthead .location {
+    justify-self: start;
+    margin-top: 6px;
+    margin-left: -0.04em;
+  }
 }
 
-/* --- Label-column rows ------------------------------------------------------ */
+/* --- Label-column rows ---------------------------------------------------------- */
 
 .row {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px var(--gap);
-  padding: 32px 0;
+  align-items: baseline;
+  gap: var(--s-3) var(--s-6);
+  padding-block: var(--row-pad);
   border-bottom: 1px solid var(--rule);
+}
+
+/* Visual rows (a stage, an image) top-align instead. */
+.row--media {
+  align-items: flex-start;
 }
 
 .row > h2 {
   flex: 0 0 var(--label-w);
   margin: 0;
-  padding-top: 5px;
   font: 500 12px/1.6 var(--mono);
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -154,8 +241,9 @@ a:hover {
   line-height: 1.6;
 }
 
-.row-body > * + * {
-  margin-top: 16px;
+/* Paragraph rhythm inside a row. Lists set their own item spacing. */
+.row-body:not(ul) > * + * {
+  margin-top: var(--s-4);
 }
 
 .row-body > ul:not([class]),
@@ -174,7 +262,7 @@ a:hover {
 .row-body pre {
   max-width: 100%;
   overflow-x: auto;
-  padding: 16px;
+  padding: var(--s-4);
   border-radius: 6px;
   background: var(--stage);
   font-size: 14px;
@@ -187,31 +275,24 @@ a:hover {
   border-radius: 6px;
 }
 
-/* Rows whose body is a list of 44px links sit a little tighter. */
-.row--links {
-  padding: 24px 0;
-}
-
-.row--links > h2 {
-  padding-top: 13px;
-}
-
-/* --- Link lists -------------------------------------------------------------- */
+/* --- Link lists ------------------------------------------------------------------
+   Each link is a 44px tap target. The list pulls in by the extra height so
+   the text sits at the same distance from the row edges as any other row. */
 
 .link-list {
   list-style: none;
-  margin: 0;
+  margin-block: calc((44px - 1.6em) / -2);
   padding: 0;
+  font-size: 17px;
 }
 
 .link-list a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  gap: var(--s-4);
   min-height: 44px;
   text-decoration: none;
-  font-size: 17px;
 }
 
 .link-list .meta {
@@ -220,20 +301,6 @@ a:hover {
   text-align: right;
 }
 
-/* --- Footer ------------------------------------------------------------------ */
-
-.site-footer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0 8px;
-  padding-top: 24px;
-  font: 400 12px/1.6 var(--mono);
-  color: var(--ink-2);
-}
-
-.site-footer a {
-  padding: 12px 0;
-  text-decoration: none;
+.link-list a:focus .meta {
+  color: inherit;
 }
