@@ -51,7 +51,7 @@ const facts = [
       <section class="row row--media" aria-labelledby="screens">
         <h2 id="screens">Screens</h2>
         <div class="row-body">
-          <ScreenCarousel screens={data.screens} label={`${data.title} screens`} />
+          <ScreenCarousel screens={data.screens} frame={data.frame} label={`${data.title} screens`} />
         </div>
       </section>
     )
@@ -155,10 +155,11 @@ const facts = [
     color: var(--ink-2);
   }
 
+  /* Facts size to their content, so short metadata stays on one line when
+     there's room and still wraps (rather than overflowing) when there isn't. */
   .facts dd {
     margin: 0;
     font-size: var(--t-body);
-    white-space: nowrap;
   }
 
 
@@ -168,9 +169,4 @@ const facts = [
     }
   }
 
-  @media (max-width: 400px) {
-    .facts dd {
-      white-space: normal;
-    }
-  }
 </style>

@@ -49,7 +49,8 @@ Planned content, in priority order. Rule for anything that goes on the site: rea
 
 - [x] **Reading row** (live, under Studying). Entries live in `src/content/reading.yaml`. Still to do: replace each summary with Brendon's own one-line take.
   - Current: Anthropic (Oct 2026), Google Threat Intelligence (Sep 2026), Simon Willison (Jun 2025). Earlier picks: Saltzer & Schroeder (1975), Anderson (1993).
-- [ ] **Brisbane drop-off map as project #2.** Real users (rideshare drivers group). Showcase: a screenshot of the map with red no-stopping kerbs, the problem (camera fines), how data is crowdsourced, and a link to the live GitHub Pages map.
+- [ ] **AI chatbot with guardrails (IFB220) as the lead project.** Draft at `src/content/projects/ai-chatbot-guardrails.md` (order 0, above Tally). Needs: the cleaned-up repo README, screenshots (browser frame), then `draft: false`.
+- [ ] **Brisbane drop-off map as another project.** Real users (rideshare drivers group). Showcase: a screenshot of the map with red no-stopping kerbs, the problem (camera fines), how data is crowdsourced, and a link to the live GitHub Pages map.
 - [ ] **Now row.** Two or three dated lines on what's in progress this month.
 - [ ] **Later, when real:** certifications, resume link.
 - Skipped on purpose: PulseX analysis (not a current interest), Pie Pulse (too basic next to this site), /uses page, testimonials, skill bars, stat widgets.
@@ -69,6 +70,6 @@ Routine calls made while building v1. Change any of them.
 - **Footer: quote left (no quotation marks), live Brisbane clock right.** Replaced "© Brendon Babicean" and "Last updated". The clock stays hidden if JavaScript is off.
 - **Last-clicked link turns accent.** It's CSS `:focus`, plus a 3-line script so Safari focuses links on click like Chrome does. No tap-highlight boxes.
 - **Scripts and styles never inline** (`inlineStylesheets: 'never'`, `assetsInlineLimit: 0`), so the CSP needs no `'unsafe-inline'`.
-- **Tally's Screens row uses real screenshots** (Welcome, Today, History) from Brendon's phone, status bars painted out in the app's background colour. Side by side when there's room (desktop); a swipe row with snap, arrows and a counter when there isn't (phones, tablets). Add `screens:` to any project's frontmatter to get the same row.
+- **Tally's Screens row uses real screenshots** (Welcome, Today, History) from Brendon's phone, status bars painted out in the app's background colour. Side by side when there's room (desktop); a swipe row with snap, arrows and a counter when there isn't (phones, tablets). Add `screens:` to any project's frontmatter to get the same row; `frame: browser` wraps web app screenshots in a window instead of a phone.
 - **Reading sits under Studying, above Find me and Contact**, so contact stays the last thing on the page. Same grammar as Projects, one step quieter (titles at body size). Links go to each author's own copy.
 - **The security pipeline project is a draft file**, so the slot exists in code but nothing shows publicly.

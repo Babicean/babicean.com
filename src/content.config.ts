@@ -33,6 +33,8 @@ const projects = defineCollection({
     screens: z
       .array(z.object({ src: image(), caption: z.string(), alt: z.string() }))
       .default([]),
+    /** Device frame for the screenshots: phone (apps) or browser (web apps). */
+    frame: z.enum(['phone', 'browser']).default('phone'),
     /** Rendered as the Links row; omitted when empty. */
     links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
   }),
