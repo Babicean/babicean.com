@@ -47,6 +47,8 @@ const reading = defineCollection({
     title: z.string(),
     author: z.string(),
     year: z.number().int(),
+    /** Optional month (1–12); shown as "Oct 2026" when set. */
+    month: z.number().int().min(1).max(12).optional(),
     url: z.string(),
     /** One line on why it's worth reading. Ideally in your own words. */
     summary: z.string(),

@@ -1,26 +1,30 @@
 # The Reading row on the homepage. Each entry needs a unique id.
+# month (1–12) is optional; when set, the date shows as "Oct 2026".
 # Replace each summary with your own one-line take once you've read it.
 
-- id: saltzer-schroeder
-  title: The Protection of Information in Computer Systems
-  author: Saltzer & Schroeder
-  year: 1975
-  url: https://web.mit.edu/Saltzer/www/publications/protection/
-  summary: Where least privilege, fail-safe defaults and the other design principles still taught today come from.
+- id: anthropic-unintended-actions
+  title: Investigating Unintended Model Actions in Our Evaluations and Internal Use
+  author: Anthropic
+  year: 2026
+  month: 10
+  url: https://www.anthropic.com/research/investigating-unintended-model-actions
+  summary: An AI lab's own account of its agents doing things they weren't meant to on real systems, from submitting forms to working around access controls, and what changed in response.
   order: 1
 
-- id: why-cryptosystems-fail
-  title: Why Cryptosystems Fail
-  author: Ross Anderson
-  year: 1993
-  url: https://www.cl.cam.ac.uk/~rja14/wcf.html
-  summary: A study of real bank-machine fraud showing most systems fail through implementation and operational mistakes, not broken cryptography.
+- id: gtig-prompting-to-autonomy
+  title: "GTIG AI Threat Tracker: From Prompting to Autonomy"
+  author: Google Threat Intelligence
+  year: 2026
+  month: 9
+  url: https://cloud.google.com/blog/topics/threat-intelligence/from-prompting-to-autonomy-the-evolution-of-adversarial-ai
+  summary: How real attackers moved from asking AI for help to running AI agents inside their operations.
   order: 2
 
 - id: lethal-trifecta
   title: The Lethal Trifecta for AI Agents
   author: Simon Willison
   year: 2025
+  month: 6
   url: https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/
-  summary: "Private data, untrusted content and a way to send data out: the three ingredients that let an AI agent be tricked into leaking."
+  summary: "The underlying security model for prompt injection: private data, untrusted content and a way to send data out let an AI agent be tricked into leaking."
   order: 3

@@ -13,6 +13,10 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
 const reading = (await getCollection('reading', ({ data }) => !data.draft)).sort(
   (a, b) => a.data.order - b.data.order,
 );
+
+const monthName = new Intl.DateTimeFormat('en-AU', { month: 'short', timeZone: 'UTC' });
+const published = (year: number, month?: number) =>
+  month ? `${monthName.format(new Date(Date.UTC(year, month - 1, 1)))} ${year}` : String(year);
 ---
 
 <Base>
@@ -78,7 +82,7 @@ const reading = (await getCollection('reading', ({ data }) => !data.draft)).sort
               <a class="reading-title" href={item.data.url} rel="noopener">
                 {item.data.title} <span class="arrow" aria-hidden="true">↗</span>
               </a>
-              <span class="reading-meta mono muted">{meta([item.data.author, item.data.year])}</span>
+              <span class="reading-meta mono muted">{meta([item.data.author, published(item.data.year, item.data.month)])}</span>
               <span class="reading-summary muted">{item.data.summary}</span>
             </li>
           ))}

@@ -48,7 +48,7 @@ Work in progress stays `draft: true`: it is not listed and no page is built for 
 Planned content, in priority order. Rule for anything that goes on the site: real, finished work or a genuine take; no filler.
 
 - [x] **Reading row** (live, under Studying). Entries live in `src/content/reading.yaml`. Still to do: replace each summary with Brendon's own one-line take.
-  - Alternates if swapping one out: Ross Anderson's *Security Engineering* (free online); Ken Thompson's *Reflections on Trusting Trust* (dropped: a little awkward next to AI-assisted apps).
+  - Current: Anthropic (Oct 2026), Google Threat Intelligence (Sep 2026), Simon Willison (Jun 2025). Earlier picks: Saltzer & Schroeder (1975), Anderson (1993).
 - [ ] **Brisbane drop-off map as project #2.** Real users (rideshare drivers group). Showcase: a screenshot of the map with red no-stopping kerbs, the problem (camera fines), how data is crowdsourced, and a link to the live GitHub Pages map.
 - [ ] **Now row.** Two or three dated lines on what's in progress this month.
 - [ ] **Later, when real:** certifications, resume link.
