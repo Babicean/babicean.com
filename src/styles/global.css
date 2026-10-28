@@ -1,0 +1,239 @@
+/* ---------------------------------------------------------------------------
+   babicean.com — the "Index" design
+   Warm paper, one ink, one accent. IBM Plex Sans for reading, Plex Mono for
+   labels and metadata. Every section is a label-column row.
+--------------------------------------------------------------------------- */
+
+:root {
+  --paper: #f4f3ef;
+  --ink: #1a1a1a;
+  --ink-2: #5c5a55;
+  --ink-hover: #3d3b37;
+  --rule: #dddad2;
+  --stage: #e9e7e1;
+  --accent: #0b6e4f;
+
+  --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --label-w: 180px;
+  --gap: 32px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--ink);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+a:hover {
+  color: var(--ink-hover);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: #d9e6df;
+}
+
+.page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 96px 32px 64px;
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 56px 16px 40px;
+  }
+}
+
+.mono {
+  font-family: var(--mono);
+}
+
+.muted {
+  color: var(--ink-2);
+}
+
+.arrow {
+  color: var(--accent);
+}
+
+/* --- Masthead -------------------------------------------------------------- */
+
+.masthead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--ink);
+}
+
+.masthead h1 {
+  margin: 0;
+  font-size: 44px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.masthead p {
+  margin: 10px 0 0;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.masthead .location {
+  margin: 0;
+  font-size: 13px;
+}
+
+@media (max-width: 640px) {
+  .masthead h1 {
+    font-size: 36px;
+  }
+}
+
+/* --- Label-column rows ------------------------------------------------------ */
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px var(--gap);
+  padding: 32px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.row > h2 {
+  flex: 0 0 var(--label-w);
+  margin: 0;
+  padding-top: 5px;
+  font: 500 12px/1.6 var(--mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.row-body {
+  flex: 999 1 480px;
+  min-width: 0;
+}
+
+.row-body > p {
+  margin: 0;
+  max-width: 640px;
+  font-size: 19px;
+  line-height: 1.6;
+}
+
+.row-body > * + * {
+  margin-top: 16px;
+}
+
+.row-body > ul:not([class]),
+.row-body > ol {
+  max-width: 640px;
+  margin-bottom: 0;
+  padding-left: 1.2em;
+  font-size: 19px;
+}
+
+.row-body code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+}
+
+.row-body pre {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 16px;
+  border-radius: 6px;
+  background: var(--stage);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.row-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+/* Rows whose body is a list of 44px links sit a little tighter. */
+.row--links {
+  padding: 24px 0;
+}
+
+.row--links > h2 {
+  padding-top: 13px;
+}
+
+/* --- Link lists -------------------------------------------------------------- */
+
+.link-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.link-list a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  min-height: 44px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.link-list .meta {
+  font: 400 13px/1.4 var(--mono);
+  color: var(--ink-2);
+  text-align: right;
+}
+
+/* --- Footer ------------------------------------------------------------------ */
+
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0 8px;
+  padding-top: 24px;
+  font: 400 12px/1.6 var(--mono);
+  color: var(--ink-2);
+}
+
+.site-footer a {
+  padding: 12px 0;
+  text-decoration: none;
+}

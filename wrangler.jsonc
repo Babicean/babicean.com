@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // A static site on Workers static assets: no Worker code, just the build output.
+  "name": "babicean-com",
+  "compatibility_date": "2026-10-28",
+  "assets": {
+    "directory": "./dist",
+    // Serve dist/404.html for unknown paths.
+    "not_found_handling": "404-page"
+  }
+}

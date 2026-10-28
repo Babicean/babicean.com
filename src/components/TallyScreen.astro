@@ -1,0 +1,322 @@
+---
+/**
+ * A faithful HTML/CSS recreation of Tally's Today screen, built from the app's
+ * own design tokens (Azure theme, Inter). Swap for a screen recording later.
+ * No inline styles anywhere: the site's CSP allows stylesheets from 'self' only.
+ */
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-500.css';
+import '@fontsource/inter/latin-600.css';
+
+const entries = [
+  { name: 'Protein oats', time: '7:40 am', protein: 38, kcal: 520 },
+  { name: 'Chicken and rice bowl', time: '12:15 pm', protein: 42, kcal: 640 },
+  { name: 'Greek yoghurt', time: '3:30 pm', protein: 20, kcal: 180 },
+  { name: 'Beef wrap', time: '7:05 pm', protein: 28, kcal: 402 },
+];
+
+const goal = 2500;
+const total = entries.reduce((sum, e) => sum + e.kcal, 0);
+const protein = entries.reduce((sum, e) => sum + e.protein, 0);
+const fmt = (n: number) => n.toLocaleString('en-AU');
+
+// Ring geometry matches the app: 240-unit viewBox, 8-unit stroke.
+const r = 116;
+const circumference = 2 * Math.PI * r;
+const offset = circumference * (1 - Math.min(total / goal, 1));
+
+// Ambient sparkles at the app's golden-angle positions, as far as progress reaches.
+const sparkFills = ['spark-accent', 'spark-warn', 'spark-ink'];
+const sparks = Array.from({ length: Math.floor((total / goal) * 16) }, (_, i) => {
+  const angle = i * 137.508 * (Math.PI / 180);
+  const radius = 64 + ((i * 31) % 40);
+  return {
+    cx: (120 + Math.cos(angle) * radius).toFixed(1),
+    cy: (120 + Math.sin(angle) * radius).toFixed(1),
+    r: (1.6 + ((i * 13) % 10) / 6).toFixed(2),
+    cls: sparkFills[i % 3],
+  };
+});
+---
+
+<div
+  class="phone"
+  role="img"
+  aria-label={`Tally's Today screen: a 12-day streak, ${fmt(total)} of ${fmt(goal)} calories in the progress ring, ${protein} of 180 grams of protein, and ${entries.length} logged entries`}
+>
+  <div class="camera"></div>
+  <p class="date">Wednesday 28 October</p>
+  <p class="streak">
+    <svg width="9" height="9" viewBox="0 0 15 15" aria-hidden="true">
+      <path class="spark-accent" d="M7.5 0.8l1.7 4.9 4.9 1.8-4.9 1.8-1.7 4.9-1.7-4.9L.9 7.5l4.9-1.8L7.5.8z"></path>
+    </svg>
+    12-day streak
+  </p>
+
+  <div class="ring">
+    <svg width="176" height="176" viewBox="0 0 240 240" aria-hidden="true">
+      {sparks.map((s) => <circle class={s.cls} cx={s.cx} cy={s.cy} r={s.r} />)}
+      <circle class="ring-track" cx="120" cy="120" r={r} fill="none" stroke-width="8"></circle>
+      <circle
+        class="ring-progress"
+        cx="120"
+        cy="120"
+        r={r}
+        fill="none"
+        stroke-width="8"
+        stroke-linecap="round"
+        stroke-dasharray={circumference.toFixed(2)}
+        stroke-dashoffset={offset.toFixed(2)}
+        transform="rotate(-90 120 120)"></circle>
+    </svg>
+    <div class="ring-inner">
+      <span class="total">{fmt(total)}</span>
+      <span class="of">of {fmt(goal)} cal</span>
+    </div>
+  </div>
+
+  <p class="protein">{protein} / 180 g protein</p>
+  <div class="pill">
+    {fmt(goal - total)} remaining
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+      <path d="M3.5 2l3 3-3 3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+  </div>
+
+  <div class="chips">
+    <span>Protein oats</span>
+    <span>Greek yoghurt</span>
+    <span>Coffee</span>
+  </div>
+
+  <div class="label">Entries <span>{entries.length}</span></div>
+  <div class="entries">
+    {
+      entries.map((e) => (
+        <div class="entry">
+          <div>
+            <span class="entry-name">{e.name}</span>
+            <span class="entry-meta">
+              {e.time} · {e.protein} g protein
+            </span>
+          </div>
+          <span class="entry-kcal">{fmt(e.kcal)}</span>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  /* Tally's own tokens (light "Azure" theme). */
+  .phone {
+    --t-bg: #f5f6f8;
+    --t-card: #ffffff;
+    --t-ink: #1b1d22;
+    --t-ink-2: #6b6e76;
+    --t-ink-3: #a9acb4;
+    --t-accent: #2e6be6;
+    --t-accent-soft: #eaf0fc;
+    --t-warn: #b5822f;
+    --t-track: #e9eaed;
+    --t-hair: #edeef0;
+
+    width: 300px;
+    height: 620px;
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    padding: 12px 14px 0;
+    border: 9px solid #1d1d1f;
+    border-radius: 40px;
+    background: var(--t-bg);
+    color: var(--t-ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 360px) {
+    .phone {
+      zoom: 0.9;
+    }
+  }
+
+  .camera {
+    flex: none;
+    width: 11px;
+    height: 11px;
+    margin-bottom: 18px;
+    border-radius: 50%;
+    background: #0b0b0c;
+  }
+
+  .date,
+  .streak,
+  .protein {
+    margin: 0;
+    color: var(--t-ink-2);
+  }
+
+  .streak {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .spark-accent {
+    fill: var(--t-accent);
+  }
+
+  .spark-warn {
+    fill: var(--t-warn);
+  }
+
+  .spark-ink {
+    fill: var(--t-ink-3);
+  }
+
+  .ring {
+    position: relative;
+    flex: none;
+    width: 176px;
+    height: 176px;
+    margin-top: 10px;
+  }
+
+  .ring-track {
+    stroke: var(--t-track);
+  }
+
+  .ring-progress {
+    stroke: var(--t-accent);
+  }
+
+  .ring-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+  }
+
+  .total {
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .of {
+    color: var(--t-ink-2);
+  }
+
+  .protein {
+    margin-top: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .pill {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 10px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--t-accent-soft);
+    color: var(--t-accent);
+    font-weight: 500;
+  }
+
+  .pill path {
+    stroke: var(--t-accent);
+  }
+
+  .chips {
+    flex: none;
+    align-self: stretch;
+    display: flex;
+    gap: 6px;
+    margin-top: 16px;
+    overflow: hidden;
+  }
+
+  .chips span {
+    flex: none;
+    padding: 6px 10px;
+    border: 1px solid var(--t-hair);
+    border-radius: 999px;
+    background: var(--t-card);
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .label {
+    flex: none;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 16px 0 8px 2px;
+    color: var(--t-ink-2);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .label span {
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: var(--t-hair);
+    font-size: 10px;
+  }
+
+  .entries {
+    flex: none;
+    align-self: stretch;
+    border-radius: 14px;
+    background: var(--t-card);
+  }
+
+  .entry {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+  }
+
+  .entry + .entry {
+    border-top: 1px solid var(--t-hair);
+  }
+
+  .entry > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .entry-name,
+  .entry-kcal {
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .entry-meta {
+    color: var(--t-ink-2);
+    font-size: 10px;
+  }
+
+  .entry-kcal {
+    font-variant-numeric: tabular-nums;
+  }
+</style>
