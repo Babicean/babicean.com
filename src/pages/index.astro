@@ -14,9 +14,10 @@ const reading = (await getCollection('reading', ({ data }) => !data.draft)).sort
   (a, b) => a.data.order - b.data.order,
 );
 
-const monthName = new Intl.DateTimeFormat('en-AU', { month: 'short', timeZone: 'UTC' });
+// Fixed three-letter months: en-AU's own short form gives "Sept", which breaks the rhythm.
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const published = (year: number, month?: number) =>
-  month ? `${monthName.format(new Date(Date.UTC(year, month - 1, 1)))} ${year}` : String(year);
+  month ? `${MONTHS[month - 1]} ${year}` : String(year);
 ---
 
 <Base>
