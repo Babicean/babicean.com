@@ -26,6 +26,7 @@ Work in progress stays `draft: true`: it is not listed and no page is built for 
 | --- | --- |
 | Name, email, links | `src/site.ts` |
 | Reading list | `src/content/reading.yaml` |
+| Project screenshots | next to each project's `.md`, listed under `screens:` |
 | Homepage | `src/pages/index.astro` |
 | Project page template | `src/pages/projects/[slug].astro` |
 | Design tokens and shared styles | `src/styles/global.css` |
@@ -39,7 +40,7 @@ Work in progress stays `draft: true`: it is not listed and no page is built for 
 - [ ] **Tally README.** Clean it up; the case study now points there for technical detail.
 - [ ] **www redirect.** Add `www.babicean.com` to the Worker and redirect it to `babicean.com`.
 - [ ] **hello@babicean.com.** Set up Cloudflare Email Routing to forward to dev.babicean@gmail.com, then change `email` in `src/site.ts`.
-- [ ] **Demo video.** A 10-second screen recording of Tally to replace or sit beside the Today screen mockup.
+- [ ] **Live Tally demo.** Tally is a React web app, so its web build can run at `tally.babicean.com` on Cloudflare like this site (no server; each visitor's data stays in their own browser). Needs the current Tally code pushed to GitHub first: `main` is from July and has no welcome screen. Then add a "Try it in your browser" link.
 - [ ] **Old page.** The "flowers for you" page that used to live at babicean.com, if it's moving to a subdomain.
 
 ## Ideas
@@ -68,6 +69,6 @@ Routine calls made while building v1. Change any of them.
 - **Footer: quote left (no quotation marks), live Brisbane clock right.** Replaced "© Brendon Babicean" and "Last updated". The clock stays hidden if JavaScript is off.
 - **Last-clicked link turns accent.** It's CSS `:focus`, plus a 3-line script so Safari focuses links on click like Chrome does. No tap-highlight boxes.
 - **Scripts and styles never inline** (`inlineStylesheets: 'never'`, `assetsInlineLimit: 0`), so the CSP needs no `'unsafe-inline'`.
-- **The Tally screen is an HTML/CSS recreation** built from Tally's own colour tokens, not a screenshot.
+- **Tally's Screens row uses real screenshots** (Welcome, Today, History) from Brendon's phone, status bars painted out in the app's background colour. Side by side when there's room (desktop); a swipe row with snap, arrows and a counter when there isn't (phones, tablets). Add `screens:` to any project's frontmatter to get the same row.
 - **Reading sits under Studying, above Find me and Contact**, so contact stays the last thing on the page. Same grammar as Projects, one step quieter (titles at body size). Links go to each author's own copy.
 - **The security pipeline project is a draft file**, so the slot exists in code but nothing shows publicly.

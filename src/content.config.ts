@@ -9,7 +9,7 @@ import { z } from 'astro/zod';
  */
 const projects = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     /** Subtitle on the project's own page. */
     tagline: z.string(),
@@ -26,9 +26,13 @@ const projects = defineCollection({
     order: z.number().default(100),
     /** true = not listed and no page built. Work in progress stays here. */
     draft: z.boolean().default(false),
-    /** A built-in visual for the Screens row. */
-    media: z.enum(['tally-screen']).optional(),
-    mediaCaption: z.string().optional(),
+    /**
+     * Phone screenshots for the swipeable Screens row, in order. Paths are
+     * relative to the project's Markdown file. Omit for no Screens row.
+     */
+    screens: z
+      .array(z.object({ src: image(), caption: z.string(), alt: z.string() }))
+      .default([]),
     /** Rendered as the Links row; omitted when empty. */
     links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
   }),

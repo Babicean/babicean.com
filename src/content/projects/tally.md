@@ -8,7 +8,16 @@ role: Design and build
 stack: [React, TypeScript, Capacitor]
 status: TestFlight and Google Play beta
 order: 1
-media: tally-screen
+screens:
+  - src: ./tally-screens/welcome.jpg
+    caption: Welcome
+    alt: "Tally's welcome screen: the app icon, the headline “A simple way to track calories”, a short description of logging, the menu and history, and a Start tallying button."
+  - src: ./tally-screens/today.jpg
+    caption: Today
+    alt: "Tally's Today screen: 1,784 of 2,000 calories in the progress ring, a quick-add field for calories and a name, and today's entries: salmon with rice and beans, a protein bar, chicken salad and Greek yoghurt."
+  - src: ./tally-screens/history.jpg
+    caption: History
+    alt: "Tally's History screen: a 2,030 calorie daily average over a week of bars, 7 of 7 days logged, 148 g of protein a day, and a list of top foods."
 ---
 
 ## Why
