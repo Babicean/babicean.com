@@ -41,6 +41,20 @@ Work in progress stays `draft: true`: it is not listed and no page is built for 
 - [ ] **Demo video.** A 10-second screen recording of Tally to replace or sit beside the Today screen mockup.
 - [ ] **Old page.** The "flowers for you" page that used to live at babicean.com, if it's moving to a subdomain.
 
+## Ideas
+
+Planned content, in priority order. Rule for anything that goes on the site: real, finished work or a genuine take; no filler.
+
+- [ ] **Reading row.** Three timeless pieces, each with a one-line take in Brendon's own words (only add ones he has actually read). Homepage row: linked title, `Author · Year` in mono, then the take. Shortlist:
+  - Ken Thompson, *Reflections on Trusting Trust* (1984): you can't fully trust code you didn't build, all the way down to the compiler.
+  - Saltzer & Schroeder, *The Protection of Information in Computer Systems* (1975): least privilege, fail-safe defaults and the rest of the design principles still taught today.
+  - Simon Willison, *The Lethal Trifecta for AI Agents* (2025): private data + untrusted content + a way to send data out = exfiltration risk. The AI-security pick.
+  - Alternates: Ross Anderson, *Why Cryptosystems Fail* (1993); Anderson's *Security Engineering* (free online).
+- [ ] **Brisbane drop-off map as project #2.** Real users (rideshare drivers group). Showcase: a screenshot of the map with red no-stopping kerbs, the problem (camera fines), how data is crowdsourced, and a link to the live GitHub Pages map.
+- [ ] **Now row.** Two or three dated lines on what's in progress this month.
+- [ ] **Later, when real:** certifications, resume link.
+- Skipped on purpose: PulseX analysis (not a current interest), Pie Pulse (too basic next to this site), /uses page, testimonials, skill bars, stat widgets.
+
 ## Decision log
 
 Routine calls made while building v1. Change any of them.
