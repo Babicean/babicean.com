@@ -25,6 +25,7 @@ Work in progress stays `draft: true`: it is not listed and no page is built for 
 | What | Where |
 | --- | --- |
 | Name, email, links | `src/site.ts` |
+| Reading list | `src/content/reading.yaml` |
 | Homepage | `src/pages/index.astro` |
 | Project page template | `src/pages/projects/[slug].astro` |
 | Design tokens and shared styles | `src/styles/global.css` |
@@ -45,11 +46,8 @@ Work in progress stays `draft: true`: it is not listed and no page is built for 
 
 Planned content, in priority order. Rule for anything that goes on the site: real, finished work or a genuine take; no filler.
 
-- [ ] **Reading row.** Three timeless pieces, each with a one-line take in Brendon's own words (only add ones he has actually read). Homepage row: linked title, `Author · Year` in mono, then the take. Shortlist:
-  - Ken Thompson, *Reflections on Trusting Trust* (1984): you can't fully trust code you didn't build, all the way down to the compiler.
-  - Saltzer & Schroeder, *The Protection of Information in Computer Systems* (1975): least privilege, fail-safe defaults and the rest of the design principles still taught today.
-  - Simon Willison, *The Lethal Trifecta for AI Agents* (2025): private data + untrusted content + a way to send data out = exfiltration risk. The AI-security pick.
-  - Alternates: Ross Anderson, *Why Cryptosystems Fail* (1993); Anderson's *Security Engineering* (free online).
+- [x] **Reading row** (live, under Studying). Entries live in `src/content/reading.yaml`. Still to do: replace each summary with Brendon's own one-line take.
+  - Alternates if swapping one out: Ross Anderson's *Security Engineering* (free online); Ken Thompson's *Reflections on Trusting Trust* (dropped: a little awkward next to AI-assisted apps).
 - [ ] **Brisbane drop-off map as project #2.** Real users (rideshare drivers group). Showcase: a screenshot of the map with red no-stopping kerbs, the problem (camera fines), how data is crowdsourced, and a link to the live GitHub Pages map.
 - [ ] **Now row.** Two or three dated lines on what's in progress this month.
 - [ ] **Later, when real:** certifications, resume link.
@@ -71,4 +69,5 @@ Routine calls made while building v1. Change any of them.
 - **Last-clicked link turns accent.** It's CSS `:focus`, plus a 3-line script so Safari focuses links on click like Chrome does. No tap-highlight boxes.
 - **Scripts and styles never inline** (`inlineStylesheets: 'never'`, `assetsInlineLimit: 0`), so the CSP needs no `'unsafe-inline'`.
 - **The Tally screen is an HTML/CSS recreation** built from Tally's own colour tokens, not a screenshot.
+- **Reading sits under Studying, above Find me and Contact**, so contact stays the last thing on the page. Same grammar as Projects, one step quieter (titles at body size). Links go to each author's own copy.
 - **The security pipeline project is a draft file**, so the slot exists in code but nothing shows publicly.

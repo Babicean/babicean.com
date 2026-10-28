@@ -9,6 +9,10 @@ import { meta } from '../lib/meta';
 const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
   (a, b) => a.data.order - b.data.order,
 );
+
+const reading = (await getCollection('reading', ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
 ---
 
 <Base>
@@ -63,6 +67,25 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
       </p>
     </div>
   </section>
+
+  {
+    reading.length > 0 && (
+      <section class="row" aria-labelledby="reading">
+        <h2 id="reading">Reading</h2>
+        <ul class="row-body reading-list">
+          {reading.map((item) => (
+            <li>
+              <a class="reading-title" href={item.data.url} rel="noopener">
+                {item.data.title} <span class="arrow" aria-hidden="true">↗</span>
+              </a>
+              <span class="reading-meta mono muted">{meta([item.data.author, item.data.year])}</span>
+              <span class="reading-summary muted">{item.data.summary}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
 
   <section class="row" aria-labelledby="find-me">
     <h2 id="find-me">Find me</h2>
@@ -167,6 +190,47 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
 
   .project-meta {
     font-size: var(--t-meta);
+  }
+
+  /* Reading: same grammar as Projects (title, mono metadata, supporting line),
+     one step quieter: titles at body size rather than heading size. */
+  .reading-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .reading-list > li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+  }
+
+  .reading-list > li + li {
+    margin-top: var(--s-5);
+  }
+
+  .reading-title {
+    align-self: flex-start;
+    font-size: var(--t-body);
+    font-weight: 500;
+    line-height: 1.4;
+    text-decoration: none;
+  }
+
+  .reading-title:hover {
+    text-decoration: underline;
+  }
+
+  .reading-meta {
+    font-size: var(--t-meta);
+    line-height: 1.4;
+  }
+
+  .reading-summary {
+    max-width: 560px;
+    font-size: var(--t-sub);
+    line-height: 1.5;
   }
 
   .study > p + p {

@@ -1,0 +1,26 @@
+# The Reading row on the homepage. Each entry needs a unique id.
+# Replace each summary with your own one-line take once you've read it.
+
+- id: saltzer-schroeder
+  title: The Protection of Information in Computer Systems
+  author: Saltzer & Schroeder
+  year: 1975
+  url: https://web.mit.edu/Saltzer/www/publications/protection/
+  summary: Where least privilege, fail-safe defaults and the other design principles still taught today come from.
+  order: 1
+
+- id: why-cryptosystems-fail
+  title: Why Cryptosystems Fail
+  author: Ross Anderson
+  year: 1993
+  url: https://www.cl.cam.ac.uk/~rja14/wcf.html
+  summary: A study of real bank-machine fraud showing most systems fail through implementation and operational mistakes, not broken cryptography.
+  order: 2
+
+- id: lethal-trifecta
+  title: The Lethal Trifecta for AI Agents
+  author: Simon Willison
+  year: 2025
+  url: https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/
+  summary: "Private data, untrusted content and a way to send data out: the three ingredients that let an AI agent be tricked into leaking."
+  order: 3

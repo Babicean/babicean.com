@@ -1,5 +1,5 @@
 import { defineCollection } from 'astro:content';
-import { glob } from 'astro/loaders';
+import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 /**
@@ -34,4 +34,22 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { projects };
+/**
+ * The Reading row: every entry lives in one YAML file, shown by `order`.
+ */
+const reading = defineCollection({
+  loader: file('./src/content/reading.yaml'),
+  schema: z.object({
+    title: z.string(),
+    author: z.string(),
+    year: z.number().int(),
+    url: z.string(),
+    /** One line on why it's worth reading. Ideally in your own words. */
+    summary: z.string(),
+    order: z.number().default(100),
+    /** true = kept in the file but not shown. */
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { projects, reading };
