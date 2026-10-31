@@ -2,17 +2,20 @@
 import '@fontsource/ibm-plex-sans/latin-400.css';
 import '@fontsource/ibm-plex-sans/latin-500.css';
 import '@fontsource/ibm-plex-mono/latin-400.css';
-import '@fontsource/ibm-plex-mono/latin-500.css';
 import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import { site } from '../site';
 
 interface Props {
   title?: string;
   description?: string;
+  /** Pages other than the homepage point nav links at "/#section". */
+  home?: boolean;
 }
 
-const { title, description = site.description } = Astro.props;
-const pageTitle = title ? `${title} · ${site.name}` : site.name;
+const { title, description = site.description, home = false } = Astro.props;
+const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.title}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -21,11 +24,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f6f7f4" />
+    <script is:inline src="/theme.js"></script>
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#f4f3ef" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={pageTitle} />
@@ -33,16 +38,75 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:url" content={canonical} />
   </head>
   <body>
-    <div class="page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header base={home ? '' : '/'} />
+    <main id="main" class="wrap">
       <slot />
-    </div>
+    </main>
+    <Footer />
+
     <script>
+      // Theme toggle (the initial theme is set before paint by /theme.js).
+      const root = document.documentElement;
+      const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+      const themeMeta = document.querySelector('meta[name="theme-color"]');
+
+      const apply = (theme: string) => {
+        root.dataset.theme = theme;
+        toggle?.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`);
+        themeMeta?.setAttribute('content', theme === 'dark' ? '#151b18' : '#f6f7f4');
+      };
+
+      if (toggle) {
+        apply(root.dataset.theme === 'dark' ? 'dark' : 'light');
+        toggle.hidden = false;
+        toggle.addEventListener('click', () => {
+          const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+          apply(next);
+          try {
+            localStorage.setItem('bb-theme', next);
+          } catch {}
+        });
+      }
+
+      // Follow the system theme until the visitor picks one.
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
+        let chosen: string | null = null;
+        try {
+          chosen = localStorage.getItem('bb-theme');
+        } catch {}
+        if (!chosen) apply(event.matches ? 'dark' : 'light');
+      });
+
       // Focus links on click so the last one clicked keeps the accent colour
       // (Chrome does this natively; Safari and Firefox on macOS don't).
       document.addEventListener('click', (event) => {
         const link = (event.target as Element | null)?.closest('a');
         link?.focus({ preventScroll: true });
       });
+
+      // Highlight the nav item for the section in view.
+      const navLinks = [...document.querySelectorAll<HTMLAnchorElement>('.nav-links a')].filter(
+        (link) => link.pathname === location.pathname && link.hash,
+      );
+      if (navLinks.length && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              for (const link of navLinks) {
+                if (link.hash === `#${entry.target.id}`) link.setAttribute('aria-current', 'location');
+                else link.removeAttribute('aria-current');
+              }
+            }
+          },
+          { rootMargin: '-15% 0px -60% 0px' },
+        );
+        for (const link of navLinks) {
+          const section = document.querySelector(link.hash);
+          if (section) observer.observe(section);
+        }
+      }
     </script>
   </body>
 </html>

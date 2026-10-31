@@ -1,0 +1,99 @@
+---
+/**
+ * One project on the homepage: a visual card (three tilted phones for apps,
+ * a browser window for web apps) and the details underneath. Everything comes
+ * from the project's Markdown frontmatter.
+ */
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { meta } from '../lib/meta';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  /** Eager-load the first project's images; lazy-load the rest. */
+  priority?: boolean;
+}
+
+const { project, priority = false } = Astro.props;
+const { data } = project;
+const href = `/projects/${project.id}/`;
+const phones = data.screens.slice(0, 3);
+const loading = priority ? 'eager' : 'lazy';
+---
+
+<article class="project">
+  <a class="project-visual" href={href} aria-label={`${data.title}: view project`}>
+    <div class="visual-caption">
+      {data.icon && <img class="project-icon" src={data.icon.src} alt="" width="24" height="24" />}
+      <span>{data.title}</span>
+      <span class="visual-arrow" aria-hidden="true">→</span>
+    </div>
+
+    {
+      data.frame === 'phone' && phones.length > 0 && (
+        <div class="phone-stage">
+          {phones.map((screen, i) => (
+            <Image
+              src={screen.src}
+              alt={screen.alt}
+              widths={[240, 420, 630]}
+              sizes="(max-width: 480px) 120px, (max-width: 760px) 152px, 208px"
+              loading={loading}
+              class={`device device-${phones.length === 1 ? 1 : i}`}
+            />
+          ))}
+        </div>
+      )
+    }
+
+    {
+      data.frame === 'browser' && data.screens[0] && (
+        <div class="browser-stage">
+          <div class="browser-window">
+            <div class="browser-bar" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </div>
+            <Image
+              src={data.screens[0].src}
+              alt={data.screens[0].alt}
+              widths={[680, 1360]}
+              sizes="(max-width: 760px) 90vw, 680px"
+              loading={loading}
+            />
+          </div>
+        </div>
+      )
+    }
+
+    <div class="visual-foot">
+      <span>{data.role}</span>
+      <span>{meta(data.platforms)}</span>
+    </div>
+  </a>
+
+  <div class="project-information">
+    <div class="project-summary">
+      <div class="project-title-row">
+        <h3><a href={href}>{data.title}<span aria-hidden="true">→</span></a></h3>
+        {data.badge && <span class="badge">{data.badge}</span>}
+      </div>
+      <p>{data.summary}</p>
+      {
+        data.stack.length > 0 && (
+          <ul class="tags" aria-label={`${data.title} is built with`}>
+            {data.stack.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+    <div class="project-side">
+      <span class="eyebrow">{meta([data.year, data.kind])}</span>
+      <span class="release-note">{data.status}</span>
+      <a class="text-link" href={href}>View project <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</article>

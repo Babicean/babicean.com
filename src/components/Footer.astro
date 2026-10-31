@@ -1,24 +1,23 @@
 ---
 /**
- * Site footer. The left side is whatever the page passes in (a quote on the
- * homepage, a back link on project pages). The right side is a tiny analogue
- * clock showing the time in Brisbane, ticking live.
- *
- * Without JavaScript the clock simply stays hidden.
+ * Site footer: the quote on the left, a tiny analogue clock showing the time
+ * in Brisbane on the right, ticking live. Without JavaScript the clock stays
+ * hidden.
  */
+import { site } from '../site';
 ---
 
-<footer class="site-footer">
-  <div class="left"><slot /></div>
+<footer class="site-footer wrap">
+  <p>{site.quote}</p>
   <p class="clock" data-clock hidden>
-    <svg class="clock-face" width="14" height="14" viewBox="0 0 28 28" aria-hidden="true">
+    <svg class="clock-face" width="16" height="16" viewBox="0 0 28 28" aria-hidden="true">
       <circle class="clock-rim" cx="14" cy="14" r="12.5"></circle>
       <line class="clock-hour" x1="14" y1="14" x2="14" y2="8"></line>
       <line class="clock-minute" x1="14" y1="14" x2="14" y2="4.5"></line>
       <line class="clock-second" x1="14" y1="16.5" x2="14" y2="3.5"></line>
       <circle class="clock-pin" cx="14" cy="14" r="1.4"></circle>
     </svg>
-    <time data-clock-time></time><span aria-hidden="true"> · </span>Brisbane
+    <time data-clock-time></time><span aria-hidden="true">·</span><span>Brisbane</span>
   </p>
 </footer>
 
@@ -68,78 +67,3 @@
     clock.hidden = false;
   }
 </script>
-
-<style>
-  .site-footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: var(--s-2) var(--s-5);
-    padding-top: var(--row-pad);
-    font: 400 var(--t-label)/1.6 var(--mono);
-    color: var(--ink-2);
-  }
-
-  .left :global(p) {
-    margin: 0;
-  }
-
-  /* Keeps a 44px tap target without changing the footer's height. */
-  .left :global(a) {
-    display: inline-block;
-    padding-block: var(--s-3);
-    margin-block: calc(var(--s-3) * -1);
-    text-decoration: none;
-  }
-
-  /* Plain inline text, so its baseline lines up with the left side. The face
-     sits on the text's x-height centre. */
-  .clock {
-    margin: 0;
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-  }
-
-  .clock[hidden] {
-    display: none;
-  }
-
-  .clock-face {
-    margin-right: var(--s-2);
-    vertical-align: -0.2em;
-    overflow: visible;
-    stroke-linecap: round;
-  }
-
-  .clock-rim {
-    fill: none;
-    stroke: var(--ink-2);
-    stroke-width: 1.5;
-  }
-
-  .clock-hour {
-    stroke: var(--ink);
-    stroke-width: 2.4;
-  }
-
-  .clock-minute {
-    stroke: var(--ink);
-    stroke-width: 1.6;
-  }
-
-  .clock-second {
-    stroke: var(--accent);
-    stroke-width: 1;
-  }
-
-  .clock-pin {
-    fill: var(--accent);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .clock-second {
-      display: none;
-    }
-  }
-</style>

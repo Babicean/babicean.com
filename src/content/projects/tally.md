@@ -7,6 +7,10 @@ platforms: [iOS, Android]
 role: Design and build
 stack: [React, TypeScript, Capacitor]
 status: TestFlight and Google Play beta
+kind: Personal project
+badge: In beta
+icon: ./tally-icon.svg
+source: https://github.com/Babicean/Tally
 order: 1
 screens:
   - src: ./tally-screens/welcome.jpg

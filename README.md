@@ -1,6 +1,6 @@
 # babicean.com
 
-Brendon Babicean's portfolio. A static [Astro](https://astro.build) site deployed to Cloudflare (Workers static assets). The only JavaScript in the browser is under 1 KB: the footer clock and link focus.
+Brendon Babicean's portfolio. A static [Astro](https://astro.build) site deployed to Cloudflare (Workers static assets). About 4 KB of JavaScript reaches the browser: the theme toggle, the footer clock, copy-email and the nav highlight. Everything else is HTML and CSS.
 
 ## Run it
 
@@ -13,10 +13,11 @@ npm run deploy    # build + wrangler deploy (normally Cloudflare builds on push 
 
 ## Add a project
 
-1. Copy `src/content/projects/security-pipeline.md` to `src/content/projects/<slug>.md`.
+1. Copy `src/content/projects/ai-chatbot-guardrails.md` to `src/content/projects/<slug>.md`.
 2. Fill in the frontmatter. The schema in `src/content.config.ts` validates it at build time, so a missing field fails the build instead of shipping a broken page.
-3. Write the case study in Markdown. Every `## Heading` becomes a label-column row, the same as the homepage.
-4. Set `draft: false` to publish. `order` sets homepage position (lower comes first).
+3. Put screenshots next to the file and list them under `screens:`. `frame: phone` gives three tilted phones on the homepage card; `frame: browser` gives a browser window.
+4. Write the case study in Markdown. Every `## Heading` becomes a numbered section on the project page.
+5. Set `draft: false` to publish. `order` sets homepage position (lower comes first).
 
 Work in progress stays `draft: true`: it is not listed and no page is built for it.
 
@@ -24,52 +25,64 @@ Work in progress stays `draft: true`: it is not listed and no page is built for 
 
 | What | Where |
 | --- | --- |
-| Name, email, links | `src/site.ts` |
-| Reading list | `src/content/reading.yaml` |
-| Project screenshots | next to each project's `.md`, listed under `screens:` |
+| Name, email, links, About sidebar | `src/site.ts` |
 | Homepage | `src/pages/index.astro` |
+| Homepage project card | `src/components/ProjectShowcase.astro` |
 | Project page template | `src/pages/projects/[slug].astro` |
-| Design tokens and shared styles | `src/styles/global.css` |
+| Projects | `src/content/projects/*.md` (screenshots alongside) |
+| Reading list | `src/content/reading.yaml` |
+| Header, footer and clock | `src/components/Header.astro`, `Footer.astro` |
+| Design tokens and all styles | `src/styles/global.css` |
+| Theme before first paint | `public/theme.js` |
 | Middle-dot metadata rule | `src/lib/meta.ts` |
 | Security headers | `public/_headers` |
 | Cloudflare config | `wrangler.jsonc` |
 
 ## Later
 
-- [ ] **Tally signing key — before sharing the site.** The Tally page now links to the repo. Rotate the Android keystore committed there, move it to GitHub Actions secrets (`TALLY_KEYSTORE_*` are already wired), delete `android/keystore/`.
-- [ ] **Tally README.** Clean it up; the case study now points there for technical detail.
+- [ ] **Tally signing key — before sharing the site.** The Tally page links to the repo. Rotate the Android keystore committed there, move it to GitHub Actions secrets (`TALLY_KEYSTORE_*` are already wired), delete `android/keystore/`.
+- [ ] **Tally README.** Clean it up; the case study points there for technical detail.
 - [ ] **www redirect.** Add `www.babicean.com` to the Worker and redirect it to `babicean.com`.
 - [ ] **hello@babicean.com.** Set up Cloudflare Email Routing to forward to dev.babicean@gmail.com, then change `email` in `src/site.ts`.
-- [ ] **Live Tally demo.** Tally is a React web app, so its web build can run at `tally.babicean.com` on Cloudflare like this site (no server; each visitor's data stays in their own browser). Needs the current Tally code pushed to GitHub first: `main` is from July and has no welcome screen. Then add a "Try it in your browser" link.
-- [ ] **Old page.** The "flowers for you" page that used to live at babicean.com, if it's moving to a subdomain.
+- [ ] **Live Tally demo.** Tally's web build can run at `tally.babicean.com` on Cloudflare (no server; each visitor's data stays in their own browser). Needs the current Tally code pushed to GitHub first. Then add a "Try it in your browser" link.
+- [ ] **Old Workers.** `babicean-beta` (superseded by this repo), `broken-wave-0da9`, `curly-sky-48ce` and `webpage` can be deleted in the Cloudflare dashboard.
 
 ## Ideas
 
 Planned content, in priority order. Rule for anything that goes on the site: real, finished work or a genuine take; no filler.
 
-- [x] **Reading row** (live, under Studying). Entries live in `src/content/reading.yaml`. Still to do: replace each summary with Brendon's own one-line take.
-  - Current: Anthropic (Oct 2026), Google Threat Intelligence (Sep 2026), Simon Willison (Jun 2025). Earlier picks: Saltzer & Schroeder (1975), Anderson (1993).
-- [ ] **AI chatbot with guardrails (IFB220) as the lead project.** Draft at `src/content/projects/ai-chatbot-guardrails.md` (order 0, above Tally). Needs: the cleaned-up repo README, screenshots (browser frame), then `draft: false`.
-- [ ] **Brisbane drop-off map as another project.** Real users (rideshare drivers group). Showcase: a screenshot of the map with red no-stopping kerbs, the problem (camera fines), how data is crowdsourced, and a link to the live GitHub Pages map.
-- [ ] **Now row.** Two or three dated lines on what's in progress this month.
+- [ ] **AI chatbot with guardrails (IFB220) as the lead project.** Draft at `src/content/projects/ai-chatbot-guardrails.md` (order 0, above Tally). Needs: the repo, screenshots (browser frame), then `draft: false`.
+- [ ] **Reading takes.** Replace each summary in `src/content/reading.yaml` with Brendon's own one-line take.
+- [ ] **Brisbane drop-off map as another project.** Real users (rideshare drivers group). A screenshot of the map, the problem (camera fines), how data is crowdsourced, a link to the live map.
+- [ ] **Security pipeline / DLP lab.** Draft at `src/content/projects/security-pipeline.md`.
 - [ ] **Later, when real:** certifications, resume link.
-- Skipped on purpose: PulseX analysis (not a current interest), Pie Pulse (too basic next to this site), /uses page, testimonials, skill bars, stat widgets.
+- Skipped on purpose: "coming soon" cards, PulseX analysis, Pie Pulse, /uses page, testimonials, skill bars, stat widgets.
 
 ## Decision log
 
-Routine calls made while building v1. Change any of them.
+Routine calls, newest design first. Change any of them.
+
+**v2 (Oct 2026): the beta design, tightened.** The previous "Index" design is on the `archive/v1-index` branch.
+
+- **Order: brief intro, then work, then the longer About,** so visitors see evidence first. The hero sentence is the About most people read.
+- **One slogan kept: "Useful software. Safer systems."** It's the only one specific to Brendon, and the chatbot project will back up its second half. Section headings are plain numbered labels (01 Work, 02 About…) instead of taglines.
+- **Cut from the beta:** the orbit graphic panel, four taglines, filler lines ("Small, steady steps…", "Curious about what comes next"), the "On the horizon" card, and the repeated QUT/degree lines (now once in the hero, once in full in the sidebar).
+- **Bugs fixed from the beta:** "thinkabout" on phones (hidden line break), an arrow on "Brisbane, Australia" that wasn't a link, the missing security headers.
+- **Copy kept from Brendon's own words** (About, Tally summary and case study) rather than the beta's rewrites.
+- **Arrows mean something:** → stays on this site, ↗ leaves it.
+- **Readability:** the beta's 7–10px labels are now 11–12px minimum; every text colour passes WCAG AA (4.5:1) in both themes; tap targets are 44px.
+- **Spacing and type each use one scale** (`--s-*`: 4, 8, 12, 16, 24, 32, 48, 64, 96; `--t-*` in `global.css`) instead of the beta's one-off values.
+- **Accent is the beta's forest green** (`#315c48`, `#abd0b5` in dark mode). Tally's blue stays inside its icon and screenshots.
+- **Dark mode follows the system until the visitor picks one,** then remembers it. `public/theme.js` runs before paint so there's no flash of the wrong theme.
+- **Cloudflare Web Analytics is allowed in the CSP** (its script host and beacon endpoint only). It was already being injected and blocked; it's cookie-less.
+
+**Still true from v1:**
 
 - **Cloudflare Workers static assets, not Pages.** Cloudflare's current Astro guide deploys static sites this way; same free tier, same `_headers` support.
 - **Contact shows dev.babicean@gmail.com for now.** hello@babicean.com would bounce until Email Routing exists. One line to switch.
-- **Tally's GitHub link sits at the end of "How it works"**, written as a plain Markdown link. A paragraph that is only a link renders as a quiet mono footer link.
-- **Fonts are self-hosted** (Fontsource), not loaded from Google Fonts: no third-party requests, and the CSP stays `'self'`-only.
-- **Light theme only.** The paper look is the design; dark mode can come later.
-- **Accent is Tally's blue at `#2559c9`**, the shade Tally uses for pressed states. Tally's main `#2e6be6` fails WCAG AA for small text on the paper background (4.4:1); this one passes (5.7:1). Change `--accent` in `global.css` to follow the featured project.
-- **Type uses one scale** (`--t-*`, after Apple's): 44/36 name, 28 contact, 22 project titles, 18 taglines, 17 body, 15 supporting lines, 13 metadata, 12 labels. All card text is 17.
-- **Spacing uses one scale** (`--s-1` to `--s-9`: 4, 8, 12, 16, 24, 32, 48, 64, 96). Rows align label and body by first baseline instead of hand-tuned offsets. The only off-scale values are optical fixes in the masthead, measured from rendered pixels.
-- **Footer: quote left (no quotation marks), live Brisbane clock right.** Replaced "© Brendon Babicean" and "Last updated". The clock stays hidden if JavaScript is off.
-- **Last-clicked link turns accent.** It's CSS `:focus`, plus a 3-line script so Safari focuses links on click like Chrome does. No tap-highlight boxes.
+- **Fonts are self-hosted** (Fontsource): no third-party font requests.
 - **Scripts and styles never inline** (`inlineStylesheets: 'never'`, `assetsInlineLimit: 0`), so the CSP needs no `'unsafe-inline'`.
-- **Tally's Screens row uses real screenshots** (Welcome, Today, History) from Brendon's phone, status bars painted out in the app's background colour. Side by side when there's room (desktop); a swipe row with snap, arrows and a counter when there isn't (phones, tablets). Add `screens:` to any project's frontmatter to get the same row; `frame: browser` wraps web app screenshots in a window instead of a phone.
-- **Reading sits under Studying, above Find me and Contact**, so contact stays the last thing on the page. Same grammar as Projects, one step quieter (titles at body size). Links go to each author's own copy.
-- **The security pipeline project is a draft file**, so the slot exists in code but nothing shows publicly.
+- **Metadata separates with a middle dot** ("Brisbane · AU"), enforced by `src/lib/meta.ts`.
+- **Footer: "Growth mindset" left, live Brisbane clock right.** The clock stays hidden if JavaScript is off.
+- **The last link you clicked keeps the accent colour** (`:focus`, plus a 3-line script so Safari matches Chrome).
+- **Project screenshots are real**, status bars painted out. The project page shows them side by side on desktop and as a swipe row on phones.

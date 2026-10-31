@@ -5,8 +5,8 @@
 #   1. Replace every [bracketed] line.
 #   2. Drop screenshots into ./ai-chatbot-screens/ and list them under `screens:`
 #      (web app screenshots use frame: browser; delete `frame` for phone shots).
-#   3. Add the repo under `links:` once its README is cleaned up.
-#   4. Set draft: false.
+#   3. Set `source` to the repo once its README is cleaned up.
+#   4. Set draft: false. It appears first in Work, above Tally.
 title: "[Project name]"
 tagline: "[One line: an AI chatbot with security guardrails built in]"
 summary: "[One or two lines for the homepage: what it is, and the security angle]"
@@ -14,7 +14,9 @@ year: 2026
 platforms: [Web]
 role: "[Design and build / your part, if it was a group project]"
 stack: ["[Model or API]", "[Framework]", "[Language]"]
-status: "[IFB220 project · Semester 2 2026]"
+status: "[Status, e.g. Submitted · Semester 2 2026]"
+kind: University project · IFB220
+# source: https://github.com/Babicean/REPLACE-ME
 order: 0
 draft: true
 frame: browser

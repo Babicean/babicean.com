@@ -22,6 +22,14 @@ const projects = defineCollection({
     /** Joined with middle dots on the project page. */
     stack: z.array(z.string()).default([]),
     status: z.string(),
+    /** e.g. "Personal project", "University project · IFB220". */
+    kind: z.string().default('Personal project'),
+    /** Small pill next to the title on the homepage, e.g. "In beta". */
+    badge: z.string().optional(),
+    /** App icon shown on the homepage card. */
+    icon: image().optional(),
+    /** Repository link; becomes the button at the top of the project page. */
+    source: z.string().url().optional(),
     /** Lower numbers come first on the homepage. */
     order: z.number().default(100),
     /** true = not listed and no page built. Work in progress stays here. */
