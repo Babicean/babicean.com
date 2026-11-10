@@ -40,8 +40,8 @@ Work in progress stays `draft: true`: it is not listed and no page is built for 
 
 ## Later
 
-- [ ] **Tally signing key — before sharing the site.** The Tally page links to the repo. Rotate the Android keystore committed there, move it to GitHub Actions secrets (`TALLY_KEYSTORE_*` are already wired), delete `android/keystore/`.
-- [ ] **Tally README.** Clean it up; the case study points there for technical detail.
+- [ ] **Hero second sentence.** Brendon to write one sentence, in his own words, on where he's at with AI and security (learning and keeping up, not claiming expertise). It goes under the `<h1>` in `src/pages/index.astro` as `<p class="hero-description">`; there's a TODO comment marking the spot.
+- [ ] **Tally signing key — before sharing the site.** Fixed in Tally PR #3 (new README, keystore out of the repo, signing from secrets). To finish: generate a new key on your own machine, add the four `TALLY_KEY*` secrets, merge.
 - [ ] **www redirect.** Add `www.babicean.com` to the Worker and redirect it to `babicean.com`.
 - [ ] **hello@babicean.com.** Set up Cloudflare Email Routing to forward to dev.babicean@gmail.com, then change `email` in `src/site.ts`.
 - [ ] **Live Tally demo.** Tally's web build can run at `tally.babicean.com` on Cloudflare (no server; each visitor's data stays in their own browser). Needs the current Tally code pushed to GitHub first. Then add a "Try it in your browser" link.
@@ -65,10 +65,10 @@ Routine calls, newest design first. Change any of them.
 **v2 (Oct 2026): the beta design, tightened.** The previous "Index" design is on the `archive/v1-index` branch.
 
 - **Order: brief intro, then work, then the longer About,** so visitors see evidence first. The hero sentence is the About most people read.
-- **One slogan kept: "Useful software. Safer systems."** It's the only one specific to Brendon, and the chatbot project will back up its second half. Section headings are plain numbered labels (01 Work, 02 About…) instead of taglines.
+- **No slogan (Nov 2026).** "Useful software. Safer systems." was cut too, so the intro sentence is now the `<h1>`. The eyebrow reads "AI student developer". Section headings are plain numbered labels (01 Work, 02 About…) instead of taglines.
 - **Cut from the beta:** the orbit graphic panel, four taglines, filler lines ("Small, steady steps…", "Curious about what comes next"), the "On the horizon" card, and the repeated QUT/degree lines (now once in the hero, once in full in the sidebar).
 - **Bugs fixed from the beta:** "thinkabout" on phones (hidden line break), an arrow on "Brisbane, Australia" that wasn't a link, the missing security headers.
-- **No filler for symmetry (Nov 2026):** removed "Building with" from the About sidebar; the reading intro is "A few of my favourite articles."; Contact is labelled "Get in touch" with one plain sentence. Better to leave a gap than fill it with a catchphrase.
+- **No filler for symmetry (Nov 2026):** removed "Building with" from the About sidebar; the reading intro is "A few of my favourite articles."; Contact is just the label, the email and the two profile links, all sharing the same edges. Better to leave a gap than fill it with a catchphrase.
 - **Copy kept from Brendon's own words** (About, Tally summary and case study) rather than the beta's rewrites.
 - **Arrows mean something:** → stays on this site, ↗ leaves it.
 - **Readability:** the beta's 7–10px labels are now 11–12px minimum; every text colour passes WCAG AA (4.5:1) in both themes; tap targets are 44px.
