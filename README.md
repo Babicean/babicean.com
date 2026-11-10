@@ -83,7 +83,7 @@ Routine calls, newest design first. Change any of them.
 - **Contact shows dev.babicean@gmail.com for now.** hello@babicean.com would bounce until Email Routing exists. One line to switch.
 - **Fonts are self-hosted** (Fontsource): no third-party font requests.
 - **Scripts and styles never inline** (`inlineStylesheets: 'never'`, `assetsInlineLimit: 0`), so the CSP needs no `'unsafe-inline'`.
-- **Metadata separates with a middle dot** ("Brisbane · AU"), enforced by `src/lib/meta.ts`.
+- **Metadata separates with a middle dot** ("AI student developer · Brisbane"), enforced by `src/lib/meta.ts`.
 - **Footer: "Growth mindset" left, live Brisbane clock right.** The clock stays hidden if JavaScript is off.
 - **The last link you clicked keeps the accent colour** (`:focus`, plus a 3-line script so Safari matches Chrome).
 - **Project screenshots are real**, status bars painted out. The project page shows them side by side on desktop and as a swipe row on phones.
