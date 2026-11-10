@@ -68,6 +68,7 @@ Routine calls, newest design first. Change any of them.
 - **One slogan kept: "Useful software. Safer systems."** It's the only one specific to Brendon, and the chatbot project will back up its second half. Section headings are plain numbered labels (01 Work, 02 About…) instead of taglines.
 - **Cut from the beta:** the orbit graphic panel, four taglines, filler lines ("Small, steady steps…", "Curious about what comes next"), the "On the horizon" card, and the repeated QUT/degree lines (now once in the hero, once in full in the sidebar).
 - **Bugs fixed from the beta:** "thinkabout" on phones (hidden line break), an arrow on "Brisbane, Australia" that wasn't a link, the missing security headers.
+- **No filler for symmetry (Nov 2026):** removed "Building with" from the About sidebar; the reading intro is "A few of my favourite articles."; Contact is labelled "Get in touch" with one plain sentence. Better to leave a gap than fill it with a catchphrase.
 - **Copy kept from Brendon's own words** (About, Tally summary and case study) rather than the beta's rewrites.
 - **Arrows mean something:** → stays on this site, ↗ leaves it.
 - **Readability:** the beta's 7–10px labels are now 11–12px minimum; every text colour passes WCAG AA (4.5:1) in both themes; tap targets are 44px.

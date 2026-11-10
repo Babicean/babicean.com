@@ -19,7 +19,6 @@ export const site = {
     school: 'Queensland University of Technology',
     detail: 'Full-time · Cybersecurity and AI majors',
   },
-  building: ['React', 'TypeScript', 'Capacitor'],
   location: ['Brisbane', 'Australia'],
 
   links: {

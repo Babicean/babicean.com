@@ -65,10 +65,6 @@ const pad = (n: number) => String(n).padStart(2, '0');
           </dd>
         </div>
         <div>
-          <dt class="eyebrow">Building with</dt>
-          <dd><strong>{meta(site.building)}</strong></dd>
-        </div>
-        <div>
           <dt class="eyebrow">Based in</dt>
           <dd><strong>{meta(site.location)}</strong></dd>
         </div>
@@ -83,7 +79,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
           <h2 id="reading-label" class="section-label">
             <span>03</span> Reading
           </h2>
-          <p class="section-intro">A few things shaping how I think about AI and security.</p>
+          <p class="section-intro">A few of my favourite articles.</p>
         </div>
         <ol class="reading-list">
           {reading.map((item, i) => (
@@ -108,12 +104,10 @@ const pad = (n: number) => String(n).padStart(2, '0');
   }
 
   <section id="contact" class="section" aria-labelledby="contact-label">
-    <h2 id="contact-label" class="section-label"><span>04</span> Contact</h2>
+    <h2 id="contact-label" class="section-label"><span>04</span> Get in touch</h2>
     <div class="contact-layout">
       <div>
-        <p class="contact-intro">
-          Have an opportunity, a question or something interesting to share? I’d like to hear from you.
-        </p>
+        <p class="contact-intro">Email is the best way to reach me.</p>
         <div class="email-actions">
           <a class="email-link" href={`mailto:${site.email}`}>{site.email}</a>
           <button class="copy-email" type="button" data-copy={site.email} aria-label="Copy email address" hidden>
