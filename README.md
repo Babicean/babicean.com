@@ -40,7 +40,6 @@ Work in progress stays `draft: true`: it is not listed and no page is built for 
 
 ## Later
 
-- [ ] **Hero second sentence.** Brendon to write one sentence, in his own words, on where he's at with AI and security (learning and keeping up, not claiming expertise). It goes under the `<h1>` in `src/pages/index.astro` as `<p class="hero-description">`; there's a TODO comment marking the spot.
 - [ ] **Tally signing key — before sharing the site.** Fixed in Tally PR #3 (new README, keystore out of the repo, signing from secrets). To finish: generate a new key on your own machine, add the four `TALLY_KEY*` secrets, merge.
 - [ ] **www redirect.** Add `www.babicean.com` to the Worker and redirect it to `babicean.com`.
 - [ ] **hello@babicean.com.** Set up Cloudflare Email Routing to forward to dev.babicean@gmail.com, then change `email` in `src/site.ts`.
