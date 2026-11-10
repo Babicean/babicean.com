@@ -206,10 +206,6 @@ button:focus-visible {
   font-size: var(--t-meta);
 }
 
-.section-label > span {
-  color: var(--subtle);
-}
-
 .status-dot {
   display: inline-block;
   width: 6px;
@@ -881,20 +877,12 @@ button:focus-visible {
 }
 
 .reading-item {
-  display: grid;
-  grid-template-columns: 48px 1fr;
   padding: var(--s-5) 0;
   border-top: 1px solid var(--line);
 }
 
 .reading-item:last-child {
   padding-bottom: 0;
-}
-
-.reading-number {
-  padding-top: 2px;
-  font: 400 var(--t-label) / 1.5 var(--mono);
-  color: var(--subtle);
 }
 
 .reading-item .eyebrow {
@@ -930,10 +918,6 @@ button:focus-visible {
 }
 
 @media (max-width: 760px) {
-  .reading-item {
-    grid-template-columns: 32px 1fr;
-  }
-
   .reading-item h3 {
     font-size: var(--t-body);
   }
@@ -1153,30 +1137,12 @@ button:focus-visible {
   font-size: var(--t-small);
 }
 
-/* Section numbers count up down the page: 01 Screens, 02 Why, … */
-.detail-main {
-  counter-reset: part;
-}
-
-.part-label::before,
-.case-sections section.row > h2::before {
-  counter-increment: part;
-  content: counter(part, decimal-leading-zero);
-  margin-right: var(--s-4);
-  color: var(--subtle);
-}
-
 .screens {
   padding: var(--s-6) 0 var(--s-7);
 }
 
 .screens .part-label {
   margin-bottom: var(--s-5);
-}
-
-/* .section-label already spaces its children with a flex gap. */
-.section-label.part-label::before {
-  margin-right: 0;
 }
 
 /* Markdown "## Heading" sections (see src/lib/rehype-sections.mjs). */

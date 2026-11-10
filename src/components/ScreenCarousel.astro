@@ -9,7 +9,6 @@
  */
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
-import { meta } from '../lib/meta';
 
 interface Props {
   screens: { src: ImageMetadata; caption: string; alt: string }[];
@@ -18,7 +17,6 @@ interface Props {
 }
 
 const { screens, label, frame = 'phone' } = Astro.props;
-const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
 <div class={`carousel carousel--${frame}`} data-carousel>
@@ -54,7 +52,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
               />
             </div>
           )}
-          <figcaption>{meta([pad(i + 1), screen.caption])}</figcaption>
+          <figcaption>{screen.caption}</figcaption>
         </figure>
       ))
     }

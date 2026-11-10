@@ -16,7 +16,7 @@ npm run deploy    # build + wrangler deploy (normally Cloudflare builds on push 
 1. Copy `src/content/projects/ai-chatbot-guardrails.md` to `src/content/projects/<slug>.md`.
 2. Fill in the frontmatter. The schema in `src/content.config.ts` validates it at build time, so a missing field fails the build instead of shipping a broken page.
 3. Put screenshots next to the file and list them under `screens:`. `frame: phone` gives three tilted phones on the homepage card; `frame: browser` gives a browser window.
-4. Write the case study in Markdown. Every `## Heading` becomes a numbered section on the project page.
+4. Write the case study in Markdown. Every `## Heading` becomes its own section on the project page.
 5. Set `draft: false` to publish. `order` sets homepage position (lower comes first).
 
 Work in progress stays `draft: true`: it is not listed and no page is built for it.
@@ -64,7 +64,8 @@ Routine calls, newest design first. Change any of them.
 **v2 (Oct 2026): the beta design, tightened.** The previous "Index" design is on the `archive/v1-index` branch.
 
 - **Order: brief intro, then work, then the longer About,** so visitors see evidence first. The hero sentence is the About most people read.
-- **No slogan (Nov 2026).** "Useful software. Safer systems." was cut too, so the intro sentence is now the `<h1>`. The eyebrow reads "AI student developer". Section headings are plain numbered labels (01 Work, 02 About…) instead of taglines.
+- **No slogan (Nov 2026).** "Useful software. Safer systems." was cut too, so the intro sentence is now the `<h1>`. The eyebrow reads "AI student developer". Section headings are plain labels (Work, About…) instead of taglines.
+- **No section or list numbers (Nov 2026).** It's one page, not chapters; the numbers added nothing. Same on project pages and screenshot captions.
 - **Cut from the beta:** the orbit graphic panel, four taglines, filler lines ("Small, steady steps…", "Curious about what comes next"), the "On the horizon" card, and the repeated QUT/degree lines (now once in the hero, once in full in the sidebar).
 - **Bugs fixed from the beta:** "thinkabout" on phones (hidden line break), an arrow on "Brisbane, Australia" that wasn't a link, the missing security headers.
 - **No filler for symmetry (Nov 2026):** removed "Building with" from the About sidebar; the reading intro is "A few of my favourite articles."; Contact is just the label, the email and the two profile links, all sharing the same edges. Better to leave a gap than fill it with a catchphrase.
